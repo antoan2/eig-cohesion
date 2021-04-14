@@ -22,7 +22,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
 app.title = "Eig Cohésion"
 
 server = app.server
-print(os.environ('REDIS_TLS_URL'))
+print(os.getenv('REDIS_TLS_URL'))
 
 PROMO = load_promo(promo_number=4)
 WEEKLY_MEETINGS_IDS = "weekly_meetings_4:2021-12-09_2021-12-15"

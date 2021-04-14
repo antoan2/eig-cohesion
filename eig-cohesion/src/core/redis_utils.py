@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from typing import List
 import redis
@@ -9,7 +10,8 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 def get_redis_server() -> Redis:
-    return Redis(host="redis")
+    redis_url = os.getenv('REDIS_TLS_URL', 'rediss://redis:6379/0')
+    return Redis.from_url(url=redis_url)
 
 
 redis_server = get_redis_server()
