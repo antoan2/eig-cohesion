@@ -7,4 +7,4 @@ COPY ./src/requirements.txt .
 RUN pip install -r requirements.txt
 COPY ./src ./
 
-CMD ["gunicorn", "-b", "0.0.0.0:80", "app:server"]
+CMD ["gunicorn", "-b", "0.0.0.0:$PORT", "app:server"]
