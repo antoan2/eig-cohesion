@@ -18,6 +18,7 @@ import core.redis_utils as ru
 from display.weekly_meetings_card import get_weekly_meetings_card
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
+app.title = "Eig Cohésion"
 
 server = app.server
 

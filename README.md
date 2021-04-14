@@ -36,6 +36,8 @@ Vous pouvez maintenant lancer les commandes suivantes :
 
     # Build des différents services
     make build
+    # Lancer les tests
+    make test
     # Insertion de fausses données (WIP)
     docker-compose exec eig-cohesion python tool.py
     # Up l'application en mode developpement

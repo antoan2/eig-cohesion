@@ -8,5 +8,8 @@ up-prod:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 logs:
-	docker-compose logs -f eig-cohesion 
+	docker-compose logs -f eig-cohesion
+
+test:
+	docker-compose run --rm eig-cohesion pytest
 
