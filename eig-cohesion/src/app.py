@@ -25,6 +25,7 @@ server = app.server
 
 PROMO = load_promo(promo_number=4)
 WEEKLY_MEETINGS_IDS = "weekly_meetings_4:2021-12-09_2021-12-15"
+print("Starting !!!")
 
 
 def get_all_weekly_meetings_cards():
