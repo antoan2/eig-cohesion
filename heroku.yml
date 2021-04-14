@@ -3,5 +3,3 @@ build:
         eig-cohesion: eig-cohesion/Dockerfile
 run:
     eig-cohesion: gunicorn app:server
-
-
