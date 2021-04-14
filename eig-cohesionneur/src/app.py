@@ -19,7 +19,7 @@ import core.redis_utils as ru
 from display.weekly_meetings_card import get_weekly_meetings_card
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
-app.title = "Eig Cohésion"
+app.title = "Eig Cohésionneur"
 
 server = app.server
 
@@ -45,7 +45,7 @@ def get_div_weekly_meetings_card():
 title = html.Div(
     [
         dbc.Row(
-            [html.H1("EIG Cohesionneur")],
+            [html.H1("EIG Cohésionneur")],
             justify="center",
             align="center",
             className="mt-5",
