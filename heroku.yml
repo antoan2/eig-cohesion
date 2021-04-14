@@ -2,6 +2,6 @@ build:
     docker:
         eig-cohesion: eig-cohesion/Dockerfile
 run:
-    eig-cohesion: gunicorn app:server
+    eig-cohesion: gunicorn app:servwazer
 
 
