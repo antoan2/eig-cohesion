@@ -12,7 +12,6 @@ class Meeting:
         self.done = done
     
     def __repr__(self):
-        print(sorted([repr(self.eig_1), repr(self.eig_2)]))
         return ' VS '.join(sorted([repr(self.eig_1), repr(self.eig_2)]))
 
     def set_done(self):

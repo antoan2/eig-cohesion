@@ -56,14 +56,12 @@ def add_weekly_meetings(
 def set_meeting_done(
     meeting_hash: str, weekly_meetings_key: str, redis_server: redis_server
 ):
-    print('set_done', weekly_meetings_key, meeting_hash)
     redis_server.hset(weekly_meetings_key, meeting_hash, '1')
 
 
 def set_meeting_not_done(
     meeting_hash: str, weekly_meetings_key: str, redis_server: redis_server
 ):
-    print('set_not_done', weekly_meetings_key, meeting_hash)
     redis_server.hset(weekly_meetings_key, meeting_hash, '0')
 
 
@@ -82,7 +80,6 @@ def load_weekly_meetings(weekly_meetings_key: str, promo: Promo, redis_server: R
     for meeting_hash, done in meeting_hashes:
         meeting_hash = meeting_hash.decode()
         done = done.decode()
-        print(meeting_hash, done)
         meetings.append(
             get_meeting_from_hash(meeting_hash=meeting_hash, done=done, promo=promo)
         )
@@ -97,7 +94,6 @@ def load_history(promo: Promo, redis_server: Redis) -> MeetingsList:
     meeting_hashes = redis_server.sinter("meeting_history")
     meetings = []
     for meeting_hash in meeting_hashes:
-        print(meeting_hash)
         meeting_hash = meeting_hash.decode()
         meetings.append(
             get_meeting_from_hash(meeting_hash=meeting_hash, done="1", promo=promo)
