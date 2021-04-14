@@ -1,6 +1,6 @@
 version: '3'
 services:
-    eig-cohesion:
+    eig-cohesionneur:
         command: python app.py
         ports:
             - $PORT_API_DEV:8050

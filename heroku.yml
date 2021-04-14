@@ -1,5 +1,5 @@
 build:
     docker:
-        web: eig-cohesion/Dockerfile
+        web: eig-cohesionneur/Dockerfile
 run:
     web: gunicorn app:server

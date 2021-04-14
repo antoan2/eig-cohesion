@@ -25,7 +25,6 @@ server = app.server
 
 PROMO = load_promo(promo_number=4)
 WEEKLY_MEETINGS_IDS = "weekly_meetings_4:2021-12-09_2021-12-15"
-print("Starting !!!")
 
 
 def get_all_weekly_meetings_cards():
@@ -38,18 +37,15 @@ def get_all_weekly_meetings_cards():
 
 
 def get_div_weekly_meetings_card():
-    print('Test !!!')
     weekly_meetings = ru.load_weekly_meetings(WEEKLY_MEETINGS_IDS, PROMO, REDIS_SERVER)
-    print('Test !!!')
     weekly_meetings_card = get_weekly_meetings_card(weekly_meetings)
-    print('Test !!!')
     return html.Div(children=weekly_meetings_card, id=WEEKLY_MEETINGS_IDS)
 
 
 title = html.Div(
     [
         dbc.Row(
-            [html.H1("EIG Cohesion")],
+            [html.H1("EIG Cohesionneur")],
             justify="center",
             align="center",
             className="mt-5",

@@ -1,6 +1,6 @@
 version: '3'
 services:
-    eig-cohesion:
+    eig-cohesionneur:
         environment:
             - PORT=3889
         ports:

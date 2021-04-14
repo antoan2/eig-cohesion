@@ -1,4 +1,4 @@
-EIG Cohésion<a name="TOP"></a>
+EIG Cohésionneur<a name="TOP"></a>
 ===================
 *Le plus on se parle, le plus on se connait*
 
@@ -17,13 +17,18 @@ Pour pouvoir travailler sur ce projet :
 
 Cloner le projet :
 
-    git clone https://github.com/antoan2/eig-cohesion.git
-    cd eig-cohesion
+    git clone https://github.com/antoan2/eig-cohesionneur.git
+    cd eig-cohesionneur
 
 Création de l'environnement virtuel :
 
-    mkvirtualenv -a . --python=3.8 eig-cohesion
-    add2virtualenv eig-cohesion/src
+    mkvirtualenv -a . --python=3.8 eig-cohesionneur
+    add2virtualenv eig-cohesionneur/src
+
+Instalation des requirements:
+
+    workon eig-cohesionneur
+    pip install -r eig-cohesionneur/src/requirements.txt
 
 Copier le template de la configuration :
 
