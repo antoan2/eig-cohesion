@@ -1,0 +1,5 @@
+version: '3'
+services:
+    eig-cohesion:
+        ports:
+            - $PORT_API_PROD:80

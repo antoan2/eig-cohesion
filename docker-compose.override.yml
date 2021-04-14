@@ -3,6 +3,6 @@ services:
     eig-cohesion:
         command: python app.py
         ports:
-            - 13526:8050
+            - $PORT_API_DEV:8050
         volumes:
             - ./eig-cohesion/src:/app

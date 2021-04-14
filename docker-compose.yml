@@ -2,7 +2,5 @@ version: '3'
 services:
     eig-cohesion:
         build: ./eig-cohesion
-        ports:
-            - 13525:80
     redis:
         image: redis
