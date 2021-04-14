@@ -10,7 +10,7 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 def get_redis_server() -> Redis:
-    redis_url = os.getenv('REDIS_TLS_URL', 'rediss://redis:6379/0')
+    redis_url = os.getenv('REDIS_URL', 'redis://redis:6379/0')
     return Redis.from_url(url=redis_url)
 
 
