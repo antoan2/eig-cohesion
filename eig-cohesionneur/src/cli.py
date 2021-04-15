@@ -77,20 +77,11 @@ def next_week():
         weekly_meetings=created_weekly_meetings, promo=promo, redis_server=redis_server
     )
 
-    # click.echo(f"Hello {start_date} {end_date}!")
 
-    # start_date = start_date.date()
-    # end_date = end_date.date()
-    # end_date = start_date + timedelta(days=7)
-    # meetings_history = read_history(promo, redis_server)
-    # meetings = generate_random_meetings(promo=promo, meetings_history=meetings_history)
-    # created_weekly_meetings = WeeklyMeetings(
-    #     start_date=start_date, end_date=end_date, meetings=meetings
-    # )
-    # crud_weekly_meetings.create(
-    #     weekly_meetings=created_weekly_meetings, promo=promo, redis_server=redis_server
-    # )
-    # crud_weekly_meetings.set_current(weekly_meetings=created_weekly_meetings)
+@cli.command()
+def flush_all():
+    if click.confirm("Are you sure you want to flush all data from redis ?"):
+        redis_server.flushall()
 
 
 if __name__ == "__main__":
