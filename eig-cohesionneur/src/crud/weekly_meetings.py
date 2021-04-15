@@ -109,3 +109,13 @@ def read_current_key(promo: Promo, redis_server: Redis) -> WeeklyMeetings:
 def read_current(promo: Promo, redis_server: Redis) -> WeeklyMeetings:
     key = read_current_key(promo=promo, redis_server=redis_server)
     return read(weekly_meetings_key=key, promo=promo, redis_server=redis_server)
+
+
+def read_all_except_current(promo: Promo, redis_server: Redis) -> List[WeeklyMeetings]:
+    key = read_current_key(promo=promo, redis_server=redis_server)
+    all_keys = read_all_keys(promo=promo, redis_server=redis_server)
+    all_keys.remove(key)
+    all_keys = sorted(
+        all_keys, key=lambda key: get_start_date_from_key(key), reverse=True
+    )
+    return [read(c_key, promo=promo, redis_server=redis_server) for c_key in all_keys]

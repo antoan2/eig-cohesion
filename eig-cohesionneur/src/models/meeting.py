@@ -11,10 +11,7 @@ class Meeting:
         self.done = done
 
     def __repr__(self):
-        return (
-            " VS ".join(sorted([repr(self.eig_1), repr(self.eig_2)]))
-            + f" ({self.done})"
-        )
+        return " VS ".join(sorted([repr(self.eig_1), repr(self.eig_2)]))
 
     def __eq__(self, other: Meeting):
         if isinstance(other, Meeting):

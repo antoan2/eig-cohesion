@@ -3,9 +3,6 @@
 # Run this app with `python app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
-import logging
-import os
-
 import json
 import dash
 import dash_core_components as dcc
@@ -16,7 +13,7 @@ from dash.dependencies import Input, Output, State, MATCH, ALL
 from core.data_loading import load_promo
 from db import redis_server
 from crud.weekly_meetings import (
-    WEEKLY_MEETINGS_KEY_PREFIX,
+    read_all_except_current,
     read_current,
     read_current_key,
     set_meeting_done,
@@ -24,6 +21,7 @@ from crud.weekly_meetings import (
     read,
 )
 from display.weekly_meetings_card import get_weekly_meetings_card
+from models import weekly_meetings
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
 app.title = "Eig Cohésionneur"
@@ -32,13 +30,22 @@ server = app.server
 
 PROMO = load_promo(promo_number=4)
 REDIS_SERVER = redis_server
-WEEKLY_MEETINGS_IDS = read_current_key(PROMO, REDIS_SERVER)
 
 
-def get_div_weekly_meetings_card():
+def get_current_weekly_meetings_card() -> html.Div:
     current_weekly_meetings = read_current(PROMO, REDIS_SERVER)
-    current_weekly_meetings_card = get_weekly_meetings_card(current_weekly_meetings)
-    return html.Div(children=current_weekly_meetings_card, id=WEEKLY_MEETINGS_IDS)
+    current_weekly_meetings_card = get_weekly_meetings_card(
+        current_weekly_meetings, current=True
+    )
+    return current_weekly_meetings_card
+
+
+def get_previous_weekly_meetings_cards():
+    list_weekly_meetings = read_all_except_current(PROMO, REDIS_SERVER)
+    return [
+        get_weekly_meetings_card(weekly_meetings)
+        for weekly_meetings in list_weekly_meetings
+    ]
 
 
 title = html.Div(
@@ -63,14 +70,22 @@ title = html.Div(
     ]
 )
 
-app.layout = html.Div(children=[title, get_div_weekly_meetings_card()])
+app.layout = html.Div(
+    children=[
+        dcc.Location(id="url", refresh=False),
+        title,
+        html.Div(id="current_weekly_meetings"),
+        html.Div(id="previous_weekly_meetings"),
+    ]
+)
 
 
 @app.callback(
-    Output(WEEKLY_MEETINGS_IDS, "children"),
+    Output("current_weekly_meetings", "children"),
     Input({"type": "checklist", "index": ALL}, "value"),
 )
-def display_output(values):
+def display_current_weekly_meetings(values):
+    weekly_meetings_key = read_current_key(PROMO, REDIS_SERVER)
     ctx = dash.callback_context
     if ctx.triggered[0]["prop_id"] != ".":
         meeting_hash = json.loads(ctx.triggered[0]["prop_id"].split(".")[0])["index"]
@@ -78,18 +93,23 @@ def display_output(values):
         if value == ["done"]:
             set_meeting_done(
                 meeting_hash=meeting_hash,
-                weekly_meetings_key=WEEKLY_MEETINGS_IDS,
+                weekly_meetings_key=weekly_meetings_key,
                 redis_server=REDIS_SERVER,
             )
         else:
             set_meeting_not_done(
                 meeting_hash=meeting_hash,
-                weekly_meetings_key=WEEKLY_MEETINGS_IDS,
+                weekly_meetings_key=weekly_meetings_key,
                 redis_server=REDIS_SERVER,
             )
-    weekly_meetings = read(WEEKLY_MEETINGS_IDS, PROMO, REDIS_SERVER)
-    weekly_meetings_card = get_weekly_meetings_card(weekly_meetings)
+    weekly_meetings = read(weekly_meetings_key, PROMO, REDIS_SERVER)
+    weekly_meetings_card = get_weekly_meetings_card(weekly_meetings, current=True)
     return weekly_meetings_card
+
+
+@app.callback(Output("previous_weekly_meetings", "children"), Input("url", "pathname"))
+def display_previous_weekly_meetings(pathname):
+    return get_previous_weekly_meetings_cards()
 
 
 if __name__ == "__main__":
