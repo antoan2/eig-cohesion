@@ -8,7 +8,7 @@ from redis import Redis
 MEETINGS_HISTORY_KEY_PREFIX = "meeting_history"
 
 
-def load_history(promo: Promo, redis_server: Redis) -> MeetingSet:
+def read_history(promo: Promo, redis_server: Redis) -> MeetingSet:
     meeting_hashes = redis_server.sinter("meeting_history")
     meetings = []
     for meeting_hash in meeting_hashes:
