@@ -5,4 +5,4 @@ services:
         ports:
             - $PORT_API_DEV:8050
         volumes:
-            - ./eig-cohesion/src:/app
+            - ./eig-cohesionneur/src:/app

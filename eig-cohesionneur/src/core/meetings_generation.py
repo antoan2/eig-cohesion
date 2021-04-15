@@ -1,10 +1,12 @@
 from typing import List
 import itertools
-from core.meetings import MeetingsList, Meeting
-from core.promo import Promo
+from models import MeetingSet, Meeting, Promo
 import random
 
-def generate_random_meetings(promo: Promo, meetings_history: MeetingsList) -> List[Meeting]:
+
+def generate_random_meetings(
+    promo: Promo, meetings_history: MeetingSet
+) -> List[Meeting]:
     potential_meetings = []
     for eig_1, eig_2 in itertools.combinations(promo.eigs, 2):
         meeting = Meeting(eig_1=eig_1, eig_2=eig_2, done=False)
@@ -17,9 +19,10 @@ def generate_random_meetings(promo: Promo, meetings_history: MeetingsList) -> Li
     while (not sampling_done) and (n_try < n_max_try):
         sampling_done, meetings = sample_meetings(potential_meetings, n_sample)
         n_try += 1
-    print('Number of try: ', n_try)
-        
+    print("Number of try: ", n_try)
+
     return meetings
+
 
 def sample_meetings(potential_meetings, n_sample):
     meetings = []
