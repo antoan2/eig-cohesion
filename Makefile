@@ -13,3 +13,8 @@ logs:
 test:
 	docker-compose run --rm eig-cohesionneur pytest
 
+next-week:
+	heroku run --type=web -a eig-cohesionneur python cli.py next-week
+
+flush-db:
+	heroku run --type=web -a eig-cohesionneur python cli.py flush-all

@@ -48,3 +48,14 @@ Vous pouvez maintenant lancer les commandes suivantes :
     docker-compose exec eig-cohesion python tool.py
     # Up l'application en mode developpement
     make up-dev
+
+## CLI
+
+Un petit cli permet de créer de nouvelle semaines :
+
+    # Création d'une nouvelle semaine
+    python cli.py new-week -s 2021-01-01
+    # Création de la semaine suivante (rajoute les 1:1 fait dans l'historique)
+    python cli.py next-week
+    # Supprime tout
+    python cli.py flush-all
