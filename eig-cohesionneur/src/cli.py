@@ -58,6 +58,10 @@ def next_week():
     )
     start_date = current_weekly_meetings.end_date
     end_date = start_date + timedelta(days=7)
+    if not click.confirm(
+        f"Are you sure you want to create a full week (from {start_date} to {end_date}) of new meetings ?"
+    ):
+        return
 
     for meeting in current_weekly_meetings:
         print("Current week: ", meeting)

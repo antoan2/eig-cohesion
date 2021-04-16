@@ -30,10 +30,10 @@ def promo(eigs):
 @pytest.fixture
 def meetings_history(eigs):
     meetings = [
-        Meeting(eigs[0], eigs[3], done=False),
-        Meeting(eigs[4], eigs[8], done=False),
-        Meeting(eigs[6], eigs[10], done=False),
-        Meeting(eigs[9], eigs[2], done=False),
+        Meeting(eigs[0], eigs[3], done=True),
+        Meeting(eigs[4], eigs[8], done=True),
+        Meeting(eigs[6], eigs[10], done=True),
+        Meeting(eigs[9], eigs[2], done=True),
     ]
     return MeetingSet(meetings=meetings)
 
@@ -56,10 +56,8 @@ def test_meeting_generation_avoid_meeting_history(promo, meetings_history):
     print(meetings_history.meetings)
     for meeting in generated_meetings:
         print(meeting)
-        assert meeting not in meetings_history
-        meeting.done = not meeting.done
-        print(meeting)
-        assert meeting not in meetings_history
+        for historical_meeting in meetings_history:
+            assert meeting.get_hash() != historical_meeting.get_hash()
 
 
 @pytest.mark.repeat(10)
