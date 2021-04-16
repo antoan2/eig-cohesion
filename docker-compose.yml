@@ -2,5 +2,7 @@ version: '3'
 services:
     eig-cohesionneur:
         build: ./eig-cohesionneur
+        depends_on:
+            - redis
     redis:
         image: redis

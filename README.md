@@ -44,10 +44,12 @@ Vous pouvez maintenant lancer les commandes suivantes :
     make build
     # Lancer les tests
     make test
-    # Insertion de fausses données (WIP)
-    docker-compose exec eig-cohesion python tool.py
     # Up l'application en mode developpement
     make up-dev
+    # Insertion de fausses données
+    docker-compose run --rm eig-cohesionneur python cli.py new-week -s 2021-01-01
+    # Création d'une nouvelle semaine
+    docker-compose run --rm eig-cohesionneur python cli.py next-week
 
 ## CLI
 
