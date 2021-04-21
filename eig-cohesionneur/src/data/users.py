@@ -12,7 +12,7 @@ USERS = {
     "3": User("ADEX", "Thomas"),
     "4": User("DataMed", "Line"),
     "5": User("DataMed", "Joelle"),
-    "6": User("DataMed", "Sophie"),
+    "6": User("DataMed", "Jordan"),
     "7": User("CapQualif", "Nathan"),
     "8": User("CapQualif", "Elisabeth"),
     "9": User("OpenCo", "Sylvain"),
