@@ -18,10 +18,14 @@ meetings = generate_random_meetings(promo=promo, meetings_history=meetings_histo
 meetings_history = MeetingsList(meetings=meetings_history.meetings + meetings)
 print(meetings)
 
-w_1 = WeeklyMeetings(start_date=date(2021, 12, 9), end_date=date(2021, 12, 15), meetings=meetings)
+w_1 = WeeklyMeetings(
+    start_date=date(2021, 12, 9), end_date=date(2021, 12, 15), meetings=meetings
+)
 add_weekly_meetings(promo=promo, weekly_meetings=w_1, redis_server=redis_server)
 print(list(ru.get_all_weekly_meetings(promo, redis_server)))
 key = list(ru.get_all_weekly_meetings(promo, redis_server))[0]
 print(key)
-w_2 = load_weekly_meetings(weekly_meetings_key=key, promo=promo, redis_server=redis_server)
+w_2 = load_weekly_meetings(
+    weekly_meetings_key=key, promo=promo, redis_server=redis_server
+)
 print(ru.get_all_weekly_meetings(promo, redis_server))

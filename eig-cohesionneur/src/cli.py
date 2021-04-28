@@ -42,7 +42,10 @@ def new_week(start_date, promo_number):
     """
     start_date = start_date.date()
     end_date = start_date + timedelta(days=7)
-    click.echo(f"Hello {start_date} {end_date}!")
+    if not click.confirm(
+        f"Are you sure you want to create a full week (from {start_date} to {end_date}) of new meetings ?"
+    ):
+        return
     promo = load_promo(promo_number=promo_number)
     meetings_history = read_history(promo, redis_server)
     meetings = generate_random_meetings(promo=promo, meetings_history=meetings_history)
@@ -101,8 +104,6 @@ def next_week(promo_number):
 def flush_all():
     if click.confirm("Are you sure you want to flush all data from redis ?"):
         redis_server.flushall()
-
-
 
 
 if __name__ == "__main__":

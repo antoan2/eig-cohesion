@@ -13,8 +13,20 @@ logs:
 test:
 	docker-compose run --rm eig-cohesionneur pytest
 
-next-week:
+bash:
+	docker-compose run --rm eig-cohesionneur bash
+
+dev-new-week:
+	docker-compose run --rm eig-cohesionneur python cli.py new-week -s 2020-01-01
+
+dev-next-week:
+	docker-compose run --rm eig-cohesionneur python cli.py next-week
+
+dev-flush-db:
+	docker-compose run --rm eig-cohesionneur python cli.py flush-all
+
+prod-next-week:
 	heroku run --type=web -a eig-cohesionneur python cli.py next-week
 
-flush-db:
+prod-flush-db:
 	heroku run --type=web -a eig-cohesionneur python cli.py flush-all
