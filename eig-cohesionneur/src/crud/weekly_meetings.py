@@ -36,7 +36,9 @@ def create(weekly_meetings: WeeklyMeetings, promo: Promo, redis_server: Redis) -
     redis_server.delete(weekly_meetings_key)
     for meeting in weekly_meetings.meetings:
         create_on_weekly_meetings(
-            meeting=meeting, weekly_meetings=weekly_meetings, redis_server=redis_server
+            meeting=meeting,
+            weekly_meetings_key=weekly_meetings_key,
+            redis_server=redis_server,
         )
 
 
