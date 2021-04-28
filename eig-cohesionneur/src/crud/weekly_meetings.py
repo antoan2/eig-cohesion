@@ -3,6 +3,8 @@ from datetime import datetime
 
 from models import Promo, WeeklyMeetings, Meeting
 from redis import Redis
+from crud.meeting import create_on_weekly_meetings
+import redis
 
 
 DATE_FORMAT = "%Y-%m-%d"
@@ -33,11 +35,9 @@ def create(weekly_meetings: WeeklyMeetings, promo: Promo, redis_server: Redis) -
     weekly_meetings_key = get_key(weekly_meetings=weekly_meetings, promo=promo)
     redis_server.delete(weekly_meetings_key)
     for meeting in weekly_meetings.meetings:
-        if meeting.done:
-            done = "1"
-        else:
-            done = "0"
-        redis_server.hset(weekly_meetings_key, meeting.get_hash(), done)
+        create_on_weekly_meetings(
+            meeting=meeting, weekly_meetings=weekly_meetings, redis_server=redis_server
+        )
 
 
 def read(weekly_meetings_key: str, promo: Promo, redis_server: Redis):
