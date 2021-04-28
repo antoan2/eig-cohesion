@@ -87,11 +87,14 @@ def next_week(promo_number):
             crud_meeting.push_meeting_to_history(
                 meeting=meeting, promo=promo, redis_server=redis_server
             )
+
     meetings_history = read_history(promo, redis_server)
     meetings = generate_random_meetings(promo=promo, meetings_history=meetings_history)
     created_weekly_meetings = WeeklyMeetings(
         start_date=start_date, end_date=end_date, meetings=meetings
     )
+    for meeting in created_weekly_meetings:
+        print("Next week: ", meeting)
     crud_weekly_meetings.create(
         weekly_meetings=created_weekly_meetings, promo=promo, redis_server=redis_server
     )
